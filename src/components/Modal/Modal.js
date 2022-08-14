@@ -3,20 +3,30 @@ import Transition from 'react-transition-group/Transition';
 
 import './Modal.css';
 
+const animationTiming = {
+  enter: 700,
+  exit: 1000,
+};
+
 const modal = (props) => {
-  // const transitionState = props.transitionState;
-  const cssClasses = [
-    'Modal',
-    transitionState === 'entering'
-      ? 'modalOpen'
-      : transitionState === 'exiting'
-      ? 'modalClosed'
-      : null,
-  ];
   return (
-    <Transition mountOnEnter unmountOnExit in={props.open} timeout={400}>
+    <Transition
+      mountOnEnter
+      unmountOnExit
+      in={props.open}
+      timeout={animationTiming}
+    >
       {(state) => (
-        <div className={cssClasses.join(' ')}>
+        <div
+          className={[
+            'Modal',
+            state === 'entering'
+              ? 'modalOpen'
+              : state === 'exiting'
+              ? 'modalClosed'
+              : null,
+          ].join(' ')}
+        >
           <h1>A Modal</h1>
           <button className='Button' onClick={props.closed}>
             Dismiss
